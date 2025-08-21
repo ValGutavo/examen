@@ -100,3 +100,18 @@ insertarEnPosicion(pos, nombre) {
     }
     return recorrido;
   }
+ // Simula movimiento rápido desde una parada en cualquier dirección — O(k)
+ moverDesde(nombre, direccion = "adelante", pasos = 1) {
+  let actual = this.indicePorNombre.get(nombre);
+  if (!actual) {
+    console.error("Parada no encontrada:", nombre);
+    return [];
+  }
+
+  const recorrido = [];
+  while (actual && pasos-- > 0) {
+    recorrido.push(actual.nombre);
+    actual = direccion === "adelante" ? actual.siguiente : actual.anterior;
+  }
+  return recorrido;
+}
