@@ -124,10 +124,87 @@ ruta.insertarAlFinal("Centro");
 ruta.insertarEnPosicion(1, "Universidad");
 ruta.insertarAlInicio("Estación Sur");
 
-console.log("➡️ Adelante:", ruta.recorrerAdelante());
-console.log("⬅️ Atrás:", ruta.recorrerAtras());
+console.log("Adelante:", ruta.recorrerAdelante());
+console.log("Atrás:", ruta.recorrerAtras());
 
 ruta.eliminarPorNombre("Centro");
-console.log("🗑️ Sin 'Centro':", ruta.recorrerAdelante());
+console.log(" Sin 'Centro':", ruta.recorrerAdelante());
 
-console.log("🚀 Movimiento rápido desde 'Universidad':", ruta.moverDesde("Universidad", "adelante", 2));
+console.log(" Movimiento rápido desde 'Universidad':", ruta.moverDesde("Universidad", "adelante", 2));
+
+//  Ejemplo extendido: simulación de ruta alternativa
+const rutaAlternativa = new Ruta();
+
+// Inserciones iniciales
+rutaAlternativa.insertarAlFinal("Portal Oeste");
+rutaAlternativa.insertarAlFinal("Avenida 30");
+rutaAlternativa.insertarAlFinal("Estación Central");
+rutaAlternativa.insertarAlFinal("Museo");
+rutaAlternativa.insertarAlFinal("Parque Industrial");
+
+// Inserciones intermedias
+rutaAlternativa.insertarEnPosicion(2, "Hospital General");
+rutaAlternativa.insertarEnPosicion(4, "Zona Franca");
+rutaAlternativa.insertarAlInicio("Terminal Sur");
+
+// Recorrido completo
+console.log(" Ruta alternativa completa:", rutaAlternativa.recorrerAdelante());
+
+// Eliminación condicional
+rutaAlternativa.eliminarPorNombre("Museo");
+rutaAlternativa.eliminarPorNombre("NoExiste"); // Validación de parada inexistente
+
+console.log(" Ruta sin 'Museo':", rutaAlternativa.recorrerAdelante());
+
+// Simulación de recorrido parcial
+console.log("Movimiento desde 'Hospital General' hacia atrás:", rutaAlternativa.moverDesde("Hospital General", "atrás", 3));
+console.log("Movimiento desde 'Zona Franca' hacia adelante:", rutaAlternativa.moverDesde("Zona Franca", "adelante", 3));
+
+// Inserción masiva para escalabilidad
+for (let i = 0; i < 500; i++) {
+  rutaAlternativa.insertarAlFinal("Extensión " + i);
+}
+
+// Validación de recorrido final
+console.log(" Ruta extendida (últimos 5 nodos):", rutaAlternativa.moverDesde("Extensión 495", "adelante", 5));
+
+// Recorrido inverso desde el extremo
+console.log("Recorrido inverso desde 'Extensión 499':", rutaAlternativa.moverDesde("Extensión 499", "atrás", 5));
+
+/**  Benchmarking */
+console.time("Insertar al inicio");
+for (let i = 0; i < 10000; i++) {
+  ruta.insertarAlInicio("Inicio " + i);
+}
+console.timeEnd("Insertar al inicio"); // O(1)
+
+console.time("Insertar al final");
+for (let i = 0; i < 10000; i++) {
+  ruta.insertarAlFinal("Final " + i);
+}
+console.timeEnd("Insertar al final"); // O(1)
+
+console.time("Insertar en posición intermedia");
+for (let i = 0; i < 1000; i++) {
+  ruta.insertarEnPosicion(Math.floor(ruta.longitud / 2), "Intermedia " + i);
+}
+console.timeEnd("Insertar en posición intermedia"); // O(n)
+
+console.time("Eliminar por nombre");
+for (let i = 0; i < 1000; i++) {
+  ruta.eliminarPorNombre("Intermedia " + i);
+}
+console.timeEnd("Eliminar por nombre"); // O(1)
+
+console.time("Recorrer hacia adelante");
+ruta.recorrerAdelante();
+console.timeEnd("Recorrer hacia adelante"); // O(n)
+
+console.time("Recorrer hacia atrás");
+ruta.recorrerAtras();
+console.timeEnd("Recorrer hacia atrás"); // O(n)
+
+console.time("Movimiento rápido");
+const resultado = ruta.moverDesde("Inicio 9999", "adelante", 5);
+console.timeEnd("Movimiento rápido"); // O(k)
+console.log(" Movimiento rápido:", resultado);
