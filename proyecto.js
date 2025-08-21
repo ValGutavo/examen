@@ -90,3 +90,13 @@ insertarEnPosicion(pos, nombre) {
   }
   return recorrido;
 }
+  // Recorre la ruta hacia atrás — O(n)
+  recorrerAtras() {
+    const recorrido = [];
+    let actual = this.fin;
+    while (actual) {
+      recorrido.push(actual.nombre);
+      actual = actual.anterior;
+    }
+    return recorrido;
+  }
