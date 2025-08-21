@@ -15,4 +15,16 @@ class Ruta {
     this.indicePorNombre = new Map(); // Mapa auxiliar para acceso rápido por nombre
   }
 }
-
+ // Inserta una parada al inicio de la ruta — O(1)
+ insertarAlInicio(nombre) {
+  const nueva = new Parada(nombre);
+  if (!this.inicio) {
+    this.inicio = this.fin = nueva;
+  } else {
+    nueva.siguiente = this.inicio;
+    this.inicio.anterior = nueva;
+    this.inicio = nueva;
+  }
+  this.indicePorNombre.set(nombre, nueva);
+  this.longitud++;
+}
