@@ -63,3 +63,20 @@ insertarEnPosicion(pos, nombre) {
   this.indicePorNombre.set(nombre, nueva);
   this.longitud++;
 }
+ // Elimina una parada por nombre — O(1) si se usa Map
+ eliminarPorNombre(nombre) {
+  const actual = this.indicePorNombre.get(nombre);
+  if (!actual) {
+    console.warn("Parada no encontrada:", nombre);
+    return;
+  }
+
+  if (actual.anterior) actual.anterior.siguiente = actual.siguiente;
+  else this.inicio = actual.siguiente;
+
+  if (actual.siguiente) actual.siguiente.anterior = actual.anterior;
+  else this.fin = actual.anterior;
+
+  this.indicePorNombre.delete(nombre);
+  this.longitud--;
+}
