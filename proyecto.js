@@ -28,3 +28,16 @@ class Ruta {
   this.indicePorNombre.set(nombre, nueva);
   this.longitud++;
 }
+// Inserta una parada al final de la ruta — O(1)
+insertarAlFinal(nombre) {
+  const nueva = new Parada(nombre);
+  if (!this.fin) {
+    this.inicio = this.fin = nueva;
+  } else {
+    nueva.anterior = this.fin;
+    this.fin.siguiente = nueva;
+    this.fin = nueva;
+  }
+  this.indicePorNombre.set(nombre, nueva);
+  this.longitud++;
+}
