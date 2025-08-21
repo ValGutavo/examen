@@ -115,3 +115,19 @@ insertarEnPosicion(pos, nombre) {
   }
   return recorrido;
 }
+//  Ejemplo de uso básico
+const ruta = new Ruta();
+
+ruta.insertarAlFinal("Terminal Norte");
+ruta.insertarAlFinal("Calle 45");
+ruta.insertarAlFinal("Centro");
+ruta.insertarEnPosicion(1, "Universidad");
+ruta.insertarAlInicio("Estación Sur");
+
+console.log("➡️ Adelante:", ruta.recorrerAdelante());
+console.log("⬅️ Atrás:", ruta.recorrerAtras());
+
+ruta.eliminarPorNombre("Centro");
+console.log("🗑️ Sin 'Centro':", ruta.recorrerAdelante());
+
+console.log("🚀 Movimiento rápido desde 'Universidad':", ruta.moverDesde("Universidad", "adelante", 2));
