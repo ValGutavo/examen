@@ -41,3 +41,25 @@ insertarAlFinal(nombre) {
   this.indicePorNombre.set(nombre, nueva);
   this.longitud++;
 }
+// Inserta una parada en una posición específica — O(n)
+insertarEnPosicion(pos, nombre) {
+  if (pos < 0 || pos > this.longitud) {
+    console.error("Posición inválida");
+    return;
+  }
+  if (pos === 0) return this.insertarAlInicio(nombre);
+  if (pos === this.longitud) return this.insertarAlFinal(nombre);
+
+  const nueva = new Parada(nombre);
+  let actual = this.inicio;
+  for (let i = 0; i < pos; i++) actual = actual.siguiente;
+
+  const anterior = actual.anterior;
+  anterior.siguiente = nueva;
+  nueva.anterior = anterior;
+  nueva.siguiente = actual;
+  actual.anterior = nueva;
+
+  this.indicePorNombre.set(nombre, nueva);
+  this.longitud++;
+}
