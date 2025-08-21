@@ -80,3 +80,13 @@ insertarEnPosicion(pos, nombre) {
   this.indicePorNombre.delete(nombre);
   this.longitud--;
 }
+ // Recorre la ruta hacia adelante — O(n)
+ recorrerAdelante() {
+  const recorrido = [];
+  let actual = this.inicio;
+  while (actual) {
+    recorrido.push(actual.nombre);
+    actual = actual.siguiente;
+  }
+  return recorrido;
+}
